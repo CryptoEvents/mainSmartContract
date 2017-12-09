@@ -1,0 +1,21 @@
+{
+  "name": "mainsmartcontract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CryptoEvents/mainSmartContract.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/CryptoEvents/mainSmartContract/issues"
+  },
+  "homepage": "https://github.com/CryptoEvents/mainSmartContract#readme"
+}

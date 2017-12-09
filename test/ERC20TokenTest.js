@@ -31,7 +31,7 @@ contract('ERC20Token', function (accounts) {
 
 });
 
-contract('mainSmartContract', function ([_, investor, wallet, purchaser]) {
+contract('mainSmartContract', function (accounts) {
     it("init smartContract", async function () {
         let contract = await SmartContract.new(5 * 10 ** 17);
         console.log(contract);
@@ -50,12 +50,12 @@ contract('mainSmartContract', function ([_, investor, wallet, purchaser]) {
     it("deploy new eventContract", async function () {
         let contract = await SmartContract.new(5 * 10 ** 17);
         const amount = web3.toWei(0.5, 'ether');
-        contract.deployNew('Test', 'TST', 18, {value: amount, from: purchaser});
+        contract.deployNew('Test', 'TST', 18, {value: amount, from: accounts[0]});
 
     });
     it("get token eventContract", async function () {
         let contract = await SmartContract.new(5 * 10 ** 17);
-        cnt = contract.getContract('Test');
+        let cnt = contract.getContract('Test');
         console.log(cnt);
     });
 

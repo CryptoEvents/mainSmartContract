@@ -4,24 +4,34 @@ import "./ERC20Token.sol";
 
 contract mainSmartContract {
     address public owner;
-    uint public fees;
+    uint256 public fees;
     ERC20Token etoken;
 
     struct smartEvent {
         string name;
         string symbol;
-        uint decimals;
+        uint8 decimals;
         address contractEvent;
     }
 
-    mapping(address => smartEvent) public smartevents;
+    mapping(string => smartEvent) internal smartevents;
+    string[] public accounts;
 
     modifier onlyOwner() {
         require(msg.sender == owner);
         _;
     }
-
-    function mainSmartContract(uint8 _fees) public {
+    function addrPlusString(address x,string str) internal returns (string) {
+	bytes memory b = new bytes(20+bytes(str).length);
+        for (uint i = 0; i < 20; i++)
+    	    b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
+    	for (i = 20; i < 20+bytes(str).length; i++)
+            b[i] = bytes(str)[i-20];
+        return string(b);
+    }
+                    
+    function mainSmartContract(uint256 _fees) public {
+        require(_fees>0);
         owner = msg.sender;
         fees = _fees;
     }
@@ -31,16 +41,21 @@ contract mainSmartContract {
     }
 
     function deployNew(string _name, string _symbol, uint8 _decimals) public payable {
-        require(msg.value > fees);
-        smartevents[msg.sender].name = _name;
-        smartevents[msg.sender].symbol = _symbol;
-        smartevents[msg.sender].decimals = _decimals;
-        smartevents[msg.sender].contractEvent = new ERC20Token(msg.sender);
+        require(msg.value >= fees);
+        //todo: уникальное имя
+        string memory uniname = addrPlusString(msg.sender,_name);
+        smartevents[uniname].name = _name;
+        smartevents[uniname].symbol = _symbol;
+        smartevents[uniname].decimals = _decimals;
+        smartevents[uniname].contractEvent = new ERC20Token(msg.sender);
+        accounts.push(uniname);
     }
+    
 
-    function getContract() constant public
+    function getContract(string _name) constant public
     returns (smartEvent contracts)
     {
-        contracts = smartevents[msg.sender];
+        string memory uniname = addrPlusString(msg.sender,_name);
+        contracts = smartevents[uniname];
     }
 }

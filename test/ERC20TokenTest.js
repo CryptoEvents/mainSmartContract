@@ -1,4 +1,8 @@
+const web3 = global.web3;
+
 const ERC20Token = artifacts.require("./ERC20Token.sol");
+const SmartContract = artifacts.require("./mainSmartContract.sol");
+
 contract('ERC20Token', function(accounts) {
     it("init token", async function() {
         let token = await ERC20Token.new(accounts[0]);
@@ -24,4 +28,40 @@ contract('ERC20Token', function(accounts) {
 
     });
 
+    
+
+});
+
+contract('mainSmartContract', function([_, investor, wallet, purchaser]) {
+    it("init smartContract", async function() {
+        let contract = await SmartContract.new(5*10**17);
+	console.log(contract);
+    });
+    it("create smartContract without fees", async function() {
+
+        try {
+            let contract = await SmartContract.new();
+            assert(false);
+        } catch (e){
+            assert(true);
+        }
+
+    });
+
+    it("deploy new eventContract", async function() {
+        let contract = await SmartContract.new(5*10**17);
+        const amount = web3.toWei(0.5, 'ether');
+        contract.deployNew('Test','TST',18,{ value: amount, from: purchaser });
+        
+    });
+    it("get token eventContract", async function() {
+        let contract = await SmartContract.new(5*10**17);
+        cnt = contract.getContract('Test');
+        console.log(cnt);
+    });
+    it("get all token eventContract", async function() {
+        let contract = await SmartContract.new(5*10**17);
+        cnt = contract.accounts;
+        console.log(cnt);
+    });
 });

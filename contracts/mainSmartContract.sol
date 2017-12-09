@@ -15,6 +15,9 @@ contract mainSmartContract {
         _;
     }
     
+    function withdraw() onlyOwner public {
+      owner.transfer(this.balance);
+    } 
                     
     function mainSmartContract(uint8 _fees) public {
         require(_fees>0);

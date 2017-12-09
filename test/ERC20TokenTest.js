@@ -53,10 +53,10 @@ contract('mainSmartContract', function (accounts) {
         contract.deployNew('Test', 'TST', 18, {value: amount, from: accounts[0]});
 
     });
-    it("get token eventContract", async function () {
-        let contract = await SmartContract.new(5 * 10 ** 17);
-        let cnt = contract.getContract('Test');
-        console.log(cnt);
-    });
+    // it("get token eventContract", async function () {
+    //     let contract = await SmartContract.new(5 * 10 ** 17);
+    //     let cnt = contract.getContract('Test');
+    //     console.log(cnt);
+    // });
 
 });

@@ -5,7 +5,7 @@ const SmartContract = artifacts.require("./mainSmartContract.sol");
 
 contract('ERC20Token', function(accounts) {
     it("init token", async function() {
-        let token = await ERC20Token.new(accounts[0]);
+        let token = await ERC20Token.new(accounts[0],'test','tst',18);
         console.log(token);
 
     });
@@ -59,9 +59,5 @@ contract('mainSmartContract', function([_, investor, wallet, purchaser]) {
         cnt = contract.getContract('Test');
         console.log(cnt);
     });
-    it("get all token eventContract", async function() {
-        let contract = await SmartContract.new(5*10**17);
-        cnt = contract.accounts;
-        console.log(cnt);
-    });
+    
 });

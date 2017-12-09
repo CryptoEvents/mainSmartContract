@@ -15,6 +15,7 @@ contract mainSmartContract {
     }
 
     mapping(string => smartEvent) internal smartevents;
+    address[] public addrevents;
     string[] public accounts;
 
     modifier onlyOwner() {
@@ -47,8 +48,9 @@ contract mainSmartContract {
         smartevents[uniname].name = _name;
         smartevents[uniname].symbol = _symbol;
         smartevents[uniname].decimals = _decimals;
-        smartevents[uniname].contractEvent = new ERC20Token(msg.sender);
+        smartevents[uniname].contractEvent = new ERC20Token(msg.sender,_name,_symbol,_decimals);
         accounts.push(uniname);
+        addrevents.push(smartevents[uniname].contractEvent);
     }
     
 

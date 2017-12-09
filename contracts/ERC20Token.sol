@@ -4,13 +4,19 @@ import "zeppelin-solidity/contracts/token/MintableToken.sol";
 
 
 contract ERC20Token is MintableToken {
-
+    string public name;
+    string public symbol;
+    uint8 public decimals;
+      
     /**
     * Token required own owner on creation
     */
-    function ERC20Token(address _owner) public{
+    function ERC20Token(address _owner, string _name, string _symbol, uint8 _decimals) public{
         require(_owner != address(0));
         owner = _owner;
+        name = _name;
+        symbol = _symbol;
+        decimals = _decimals;
     }
 
     function createLottery() public {

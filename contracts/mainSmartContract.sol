@@ -30,7 +30,7 @@ contract mainSmartContract {
         fees = _fees;
     }
 
-    function deployNew(string _name, string _symbol, uint8 _decimals) payable {
+    function deployNew(string _name, string _symbol, uint8 _decimals) public payable {
         require(msg.value > fees);
         smartevents[msg.sender].name = _name;
         smartevents[msg.sender].symbol = _symbol;

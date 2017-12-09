@@ -33,7 +33,7 @@ contract('ERC20Token', function (accounts) {
 
 contract('mainSmartContract', function (accounts) {
     it("init smartContract", async function () {
-        let contract = await SmartContract.new(5 * 10 ** 17);
+        let contract = await SmartContract.new(50);
         console.log(contract);
     });
     it("create smartContract without fees", async function () {
@@ -48,7 +48,7 @@ contract('mainSmartContract', function (accounts) {
     });
 
     it("deploy new eventContract", async function () {
-        let contract = await SmartContract.new(5 * 10 ** 17);
+        let contract = await SmartContract.new(50);
         const amount = web3.toWei(0.5, 'ether');
         contract.deployNew('Test', 'TST', 18, {value: amount, from: accounts[0]});
 
